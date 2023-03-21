@@ -1,21 +1,16 @@
-def NameToScripts(name: str) -> str:
+import json
+from getparentdir import GetParentDir
 
-    scripts = []
+def NameToScripts(name: str) -> str:
 
     name = name.upper()
 
-    if "LEET CODE" in name:
-        script = "launchgooglewebsite.applescript https://www.bigocheatsheet.com/ https://leetcode.com/problemset/all/"
-        scripts.append(script)
+    parentDir = GetParentDir()
+    with open(f'{parentDir}/data/tasks.json', 'r') as f:
+        data = json.load(f)
 
-    elif "CODE" in name:
-        script = "launchgooglewebsite.applescript https://github.com/benninghoven?tab=repositories https://chat.openai.com/chat https://music.youtube.com/"
-        scripts.append(script)
-        script = "openapp.applescript iTerm"
-        scripts.append(script)
+    for task, scripts in data.items():
+        if name == task:
+            return scripts
 
-    elif "STUDY" in name:
-        script = "launchgooglewebsite.applescript https://www.fullerton.edu/ecs/cs/resources/advisement.php https://chat.openai.com/chat https://learn.zybooks.com/library https://csufullerton.instructure.com/"
-        scripts.append(script)
-
-    return scripts
+    return ["echo NOTHING FOUND!"]

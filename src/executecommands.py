@@ -8,5 +8,9 @@ def ExecuteAppleCommand(scripts: str, absPath: str) -> None:
         raise ValueError("must have a parameter")
 
     for script in scripts:
-        fullScript = "osascript " + absPath + "/src/scripts/" + script
-        process = subprocess.Popen(fullScript.split(), stdout=subprocess.PIPE)
+        fullScriptWithPath = ""
+        for index,arg in enumerate(script.split()):
+            if index == 1:
+                fullScriptWithPath += absPath + "/src/scripts/"
+            fullScriptWithPath += arg + " "
+        process = subprocess.Popen(fullScriptWithPath.split(), stdout=subprocess.PIPE)

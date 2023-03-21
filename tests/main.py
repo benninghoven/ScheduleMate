@@ -26,6 +26,7 @@ if __name__ == '__main__':
     ct = CurrentTime()
 
     name = todaysActivities[0].name
+    name = "LEET CODE"
 
     scripts = NameToScripts(name)
     ExecuteAppleCommand(scripts,projpath)
